@@ -1,0 +1,24 @@
+{
+  "name": "react-jet",
+  "version": "1.0.0",
+  "description": "combine jetstate and jetemit for react",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uxitten/react-jet.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uxitten/react-jet/issues"
+  },
+  "homepage": "https://github.com/uxitten/react-jet#readme",
+  "dependencies": {
+    "jetemit": "^3.0.9",
+    "jetstate": "^1.1.1"
+  }
+}
