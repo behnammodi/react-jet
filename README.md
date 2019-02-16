@@ -1,72 +1,48 @@
 # react-jet
 
-combine jetstate and jetemit for react
+Replace redux and react context
 
-# method
+# install
+
+```npm
+npm install react-jet
+```
+
+# use
+
+## Initial state
 
 ```javascript
-/**
- * jetemit
- * add listener
- */
-on("year", year => console.log(year));
+import { initial } from 'react-jet';
 
-/**
- * jetemit
- * dispatch to all listener
- */
-emit("year", "2019");
-
-/**
- * jetstate
- * initial state key
- */ 
-
-init({
-  name: "year",
-  defaultValue: "2018",
-  shouldUpdate: (prevValue, nextValue) => prevValue !== nextValue,
-  willUpdate: (prevValue, nextValue) =>
-    console.log("changed year from:", prevValue, " to:", nextValue),
-  didUpdate: value => console.log("changed year to", value)
-});
-
-/**
- * jetstate
- * change state key
- */ 
-state.year = "2019";
-
-/**
- * react-jet
- * initial key in state combine jetemit and jetstate
- */
 initial([
   {
-    name: "year",
-    defaultValue: "2018",
-    shouldUpdate: (prevValue, nextValue) => prevValue !== nextValue,
-    willUpdate: (prevValue, nextValue) =>
-      console.log("changed year from:", prevValue, " to:", nextValue),
-    didUpdate: value => console.log("changed year to", value)
-  },
-  {
-    name: "month",
-    defaultValue: "12",
-    shouldUpdate: (prevValue, nextValue) => prevValue !== nextValue,
-    willUpdate: (prevValue, nextValue) =>
-      console.log("changed month from:", prevValue, " to:", nextValue),
-    didUpdate: value => console.log("changed month to", value)
+    name: 'time',
+    defaultValue: 2018
   }
 ]);
+```
 
-/**
- * react-jet
- * connect state to react component
- */
-connect(
-  Comoponent,
-  ["year"]
+## Connect to components
+
+```javascript
+import React from 'react';
+import { connect } from 'react-jet';
+
+function DisplayTime(props) {
+  return <div>{props.time}</div>;
+}
+
+export default connect(
+  DisplayTime,
+  ['time']
 );
+```
 
+## Change state
+
+```javascript
+import { state } from 'react-jet';
+
+state.time = 2019;
 ```

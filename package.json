@@ -1,6 +1,6 @@
 {
   "name": "react-jet",
-  "version": "1.0.1",
+  "version": "1.1.0",
   "description": "combine jetstate and jetemit for react",
   "main": "index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   },
   "homepage": "https://github.com/uxitten/react-jet#readme",
   "dependencies": {
-    "jetemit": "^3.1.0",
-    "jetstate": "^1.2.1"
+    "jetemit": "^3.1.1",
+    "jetstate": "^1.2.2"
   }
 }

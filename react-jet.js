@@ -1,32 +1,35 @@
-import React, { PureComponent } from "react";
-import { init as _init, state as _state } from "jetstate";
-import { on as _on, emit as _emit} from "jetemit";
+import React from 'react';
+import * as jetstate from 'jetstate';
+import * as jetemit from 'jetemit';
 
 export const initial = fields =>
   fields.forEach(field =>
-    _init({
+    jetstate.init({
       ...field,
       didUpdate: value => {
         field.didUpdate && field.didUpdate(value);
-        _emit(field.name, value);
+        jetemit.emit(field.name, value);
       }
     })
   );
 
 export const connect = (Component, fields) => {
-  return class Connect extends PureComponent {
+  return class Connect extends React.Component {
     unsubscribes = [];
     state = fields.reduce(
       (a, b) => ({
         ...a,
-        [b]: _state[b]
+        [b]: jetstate.state[b]
       }),
       {}
     );
+
     componentDidMount = () =>
       fields.forEach(field =>
         this.unsubscribes.push(
-          _on(field, () => this.setState({ [field]: _state[field] }))
+          jetemit.on(field, () =>
+            this.setState({ [field]: jetstate.state[field] })
+          )
         )
       );
 
@@ -37,10 +40,10 @@ export const connect = (Component, fields) => {
   };
 };
 
-export const on = _on;
+export const on = jetemit.on;
 
-export const emit = _emit;
+export const emit = jetemit.emit;
 
-export const init = _init;
+export const init = jetstate.init;
 
-export const state = _state;
+export const state = jetstate.state;

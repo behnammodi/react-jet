@@ -3,79 +3,110 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.state = exports.init = exports.emit = exports.on = exports.connect = exports.initial = undefined;
+exports.state = exports.init = exports.emit = exports.on = exports.connect = exports.initial = void 0;
 
-var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+var _react = _interopRequireDefault(require("react"));
 
-var _react = require("react");
+var jetstate = _interopRequireWildcard(require("jetstate"));
 
-var _react2 = _interopRequireDefault(_react);
+var jetemit = _interopRequireWildcard(require("jetemit"));
 
-var _jetstate = require("jetstate");
-
-var _jetemit = require("jetemit");
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _instanceof(left, right) { if (right != null && typeof Symbol !== "undefined" && right[Symbol.hasInstance]) { return right[Symbol.hasInstance](left); } else { return left instanceof right; } }
+
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _extends() { _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+function _classCallCheck(instance, Constructor) { if (!_instanceof(instance, Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-var initial = exports.initial = function initial(fields) {
+var initial = function initial(fields) {
   return fields.forEach(function (field) {
-    return (0, _jetstate.init)(_extends({}, field, {
+    return jetstate.init({ ...field,
       didUpdate: function didUpdate(value) {
         field.didUpdate && field.didUpdate(value);
-        (0, _jetemit.emit)(field.name, value);
+        jetemit.emit(field.name, value);
       }
-    }));
+    });
   });
 };
 
-var connect = exports.connect = function connect(Component, fields) {
-  return function (_PureComponent) {
-    _inherits(Connect, _PureComponent);
+exports.initial = initial;
+
+var connect = function connect(Component, fields) {
+  var _temp;
+
+  return _temp =
+  /*#__PURE__*/
+  function (_React$Component) {
+    _inherits(Connect, _React$Component);
 
     function Connect() {
-      var _ref;
+      var _getPrototypeOf2;
 
-      var _temp, _this, _ret;
+      var _this;
 
       _classCallCheck(this, Connect);
 
-      for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+      for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
         args[_key] = arguments[_key];
       }
 
-      return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Connect.__proto__ || Object.getPrototypeOf(Connect)).call.apply(_ref, [this].concat(args))), _this), _this.unsubscribes = [], _this.state = fields.reduce(function (a, b) {
-        return _extends({}, a, _defineProperty({}, b, _jetstate.state[b]));
-      }, {}), _this.componentDidMount = function () {
+      _this = _possibleConstructorReturn(this, (_getPrototypeOf2 = _getPrototypeOf(Connect)).call.apply(_getPrototypeOf2, [this].concat(args)));
+
+      _defineProperty(_assertThisInitialized(_this), "unsubscribes", []);
+
+      _defineProperty(_assertThisInitialized(_this), "state", fields.reduce(function (a, b) {
+        return _defineProperty({ ...a
+        }, b, jetstate.state[b]);
+      }, {}));
+
+      _defineProperty(_assertThisInitialized(_this), "componentDidMount", function () {
         return fields.forEach(function (field) {
-          return _this.unsubscribes.push((0, _jetemit.on)(field, function () {
-            return _this.setState(_defineProperty({}, field, _jetstate.state[field]));
+          return _this.unsubscribes.push(jetemit.on(field, function () {
+            return _this.setState(_defineProperty({}, field, jetstate.state[field]));
           }));
         });
-      }, _this.componentWillUnmount = function () {
+      });
+
+      _defineProperty(_assertThisInitialized(_this), "componentWillUnmount", function () {
         return _this.unsubscribes.forEach(function (unsubscribe) {
           return unsubscribe();
         });
-      }, _this.render = function () {
-        return _react2.default.createElement(Component, _extends({}, _this.props, _this.state));
-      }, _temp), _possibleConstructorReturn(_this, _ret);
+      });
+
+      _defineProperty(_assertThisInitialized(_this), "render", function () {
+        return _react.default.createElement(Component, _extends({}, _this.props, _this.state));
+      });
+
+      return _this;
     }
 
     return Connect;
-  }(_react.PureComponent);
+  }(_react.default.Component), _temp;
 };
 
-var on = exports.on = _jetemit.on;
-
-var emit = exports.emit = _jetemit.emit;
-
-var init = exports.init = _jetstate.init;
-
-var state = exports.state = _jetstate.state;
+exports.connect = connect;
+var on = jetemit.on;
+exports.on = on;
+var emit = jetemit.emit;
+exports.emit = emit;
+var init = jetstate.init;
+exports.init = init;
+var state = jetstate.state;
+exports.state = state;

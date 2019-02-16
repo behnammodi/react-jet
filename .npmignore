@@ -3,3 +3,9 @@ react-jet.js
 package-lock.json
 
 LICENSE
+
+.prettierrc
+
+.prettierignore
+
+.vscode
