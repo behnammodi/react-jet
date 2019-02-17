@@ -7,8 +7,8 @@ export const initial = fields =>
     jetstate.init({
       ...field,
       didUpdate: value => {
-        field.didUpdate && field.didUpdate(value);
         jetemit.emit(field.name, value);
+        field.didUpdate && field.didUpdate(value);
       }
     })
   );
